@@ -16,7 +16,7 @@ namespace Fr_Consultoria
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmADM());
+            Application.Run(new frmLogin());
         }
     }
 }

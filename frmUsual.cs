@@ -19,7 +19,7 @@ namespace Fr_Consultoria
             lstProduto.Columns.Add("Nome", 300, HorizontalAlignment.Left);
             carregarList(lstProduto, "SELECT * FROM TBPRODUTO");
 
-
+                       
         }
 
 
@@ -96,12 +96,14 @@ namespace Fr_Consultoria
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-
+            string[] campo = lstProduto.Text.Split(Convert.ToChar("\t"));
+            editar(Convert.ToInt32(campo[0]));
         }
 
         private void btnInative_Click(object sender, EventArgs e)
         {
-            
+            string[] campo = lstProduto.Text.Split(Convert.ToChar("\t"));
+            desativar(Convert.ToInt32(campo[0]));
         }
     }
 }

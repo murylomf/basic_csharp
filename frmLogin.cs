@@ -25,7 +25,7 @@ namespace Fr_Consultoria
             clsConnect conexao = new clsConnect();
             conexao.conectar();
 
-            string query = "SELECT USERNAME, PASSWORD FROM USER WHERE USERNAME=@LOGIN AND PASSWORD=@SENHA";
+            string query = "SELECT USERNAME, PASSWORD FROM USUARIO WHERE USERNAME=@LOGIN AND PASSWORD=@SENHA";
 
             MySqlCommand cmd = new MySqlCommand(query, conexao.objConexao);
             cmd.Parameters.AddWithValue("@LOGIN", objLogin.ToString());
@@ -47,6 +47,26 @@ namespace Fr_Consultoria
                 conexao.desconectar();
                 return false;
             }
+        }
+
+        public string verifivartipo(string objLogin)
+        {
+            clsConnect conexao = new clsConnect();
+            conexao.conectar();
+
+            string query = "SELECT TYPE FROM USUARIO WHERE USERNAME=@LOGIN";
+
+            MySqlCommand cmd = new MySqlCommand(query, conexao.objConexao);
+            cmd.Parameters.AddWithValue("@LOGIN", objLogin.ToString());
+
+            MySqlDataReader dr = cmd.ExecuteReader();
+
+            dr.Read();
+            dr["username"].ToString();
+            string type = dr["type"].ToString();
+            dr.Close();
+            conexao.desconectar();
+            return type;
         }
 
         private void txtSenha_TextChanged(object sender, EventArgs e)
@@ -71,13 +91,24 @@ namespace Fr_Consultoria
 
 
             bool verf = verifivarLogin(name, psw);
+            string type = verifivartipo(txtLogin.Text);
+
 
             if (verf == true)
             {
-                MessageBox.Show("Salve");
-                frmADM formADM = new frmADM();
+             if (type == "ADM")
+                {
+                    frmADM formADM = new frmADM();
+                    formADM.Show();
+                }
 
-                formADM.Show();
+             else
+                {
+                   frmUsual formUsual = new frmUsual();
+
+                   formUsual.Show();
+                }
+                
             }
 
             else
